@@ -1,48 +1,62 @@
-export const CreateRecipe = () => {
+import { useForm } from "react-hook-form";
+
+export const CreateRecipe = ({ createNewRecipe }) => {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data) => {
+    createNewRecipe(data);
+  };
+
   return (
     <section>
-      <div class="center">
+      <div className="center">
         <h1>Create Recipe</h1>
-        <form method="post">
-          <div class="txt_field">
-            <input type="text" name="title" required />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="txt_field">
+            <input type="text" required {...register("title")} />
             <span></span>
             <label>Title</label>
           </div>
-          <div class="txt_field">
-            <input type="text" name="description" required />
+          <div className="txt_field">
+            <input type="text" required {...register("description")} />
             <span></span>
             <label>Description</label>
           </div>
-          <div class="txt_field">
-            <input type="number" name="preparation" required />
+          <div className="txt_field">
+            <input type="number" required {...register("preparation")} />
             <span></span>
             <label>Preparation Time (in minutes)</label>
           </div>
-          <div class="txt_field">
-            <input type="number" name="cook" required />
+          <div className="txt_field">
+            <input type="number" required {...register("cook")} />
             <span></span>
             <label>Cook Time (in minutes)</label>
           </div>
-          <div class="txt_field">
-            <input type="number" name="servings" required />
+          <div className="txt_field">
+            <input type="number" required {...register("servings")} />
             <span></span>
             <label>Number of servings</label>
           </div>
-          <div class="txt_field">
+          <div className="txt_field">
             {/* <input type="number" name="ingredients" required /> */}
-            <textarea name="preparation" required></textarea>
+            <textarea required {...register("ingredients")}></textarea>
             <span></span>
             <label>List of ingredients</label>
           </div>
-          <div class="txt_field">
+          <div className="txt_field">
             {/* <input type="number" name="method" required /> */}
-            <textarea name="method" required></textarea>
+            <textarea required {...register("method")}></textarea>
             <span></span>
             <label>Method</label>
           </div>
+          <div className="txt_field">
+            {/* <input type="number" name="method" required /> */}
+            <input required {...register("imageUrl")}></input>
+            <span></span>
+            <label>Image</label>
+          </div>
           <input type="submit" value="Create recipe" />
-          <div class="signup_link">
+          <div className="signup_link">
             {/* <!-- Already a member? <a href="#">Log in</a> --> */}
           </div>
         </form>

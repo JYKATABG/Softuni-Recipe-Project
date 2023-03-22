@@ -61,3 +61,13 @@
     border-bottom: 2px solid orangered;
     padding: 20px;
 }
+
+.no-recipes {
+    color: #fff;
+    text-align: center;
+    font-size: 45px;
+    width: 100%;
+    font-family: sans-serif;
+    text-decoration: underline;
+    text-transform: uppercase;
+}
