@@ -21,7 +21,7 @@ export function Register() {
           </div>
           <input type="submit" value="Register" />
           <div className="signup_link">
-            Already a member? <a href="#">Log in</a>
+            Already a member? <a href="/login">Log in</a>
           </div>
         </form>
       </div>
