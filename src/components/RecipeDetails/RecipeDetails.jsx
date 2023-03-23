@@ -39,6 +39,14 @@ export function RecipeDetails() {
                 <p>{recipe.method}</p>
               </div>
             </div>
+            <div className="owner-buttons">
+              <a href="" className="button">
+                Edit
+              </a>
+              <a href="" className="button">
+                Delete
+              </a>
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 .details-heading {
     text-align: center;
     margin-top: 25px;
+    margin-bottom: 50px;
 }
 
 .details-heading h1 {
@@ -72,4 +73,22 @@
 
 .cooking-method p {
     color: #fff;
+}
+
+.owner-buttons .button {
+    font-size: 20px;
+    margin: 20px;
+    text-decoration: none;
+    padding: 15px;
+    background-color: orangered;
+    color: white;
+    border-radius: 16px;
+    margin-left: 10%;
+    transition: .5s;
+}
+
+.owner-buttons .button:hover {
+    background-color: #fff;
+    color: orangered;
+    opacity: 5px;
 }
