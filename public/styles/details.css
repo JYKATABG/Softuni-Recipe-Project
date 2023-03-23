@@ -1,0 +1,75 @@
+.details-heading {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.details-heading h1 {
+    font-size: 50px;
+    color: orangered;
+}
+
+.details-heading p {
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 50px;
+    max-width: 70%;
+    padding: auto 0;
+    margin-left: 15%;
+}
+
+.recipe-requirements {
+    display: flex;
+    align-items: center;
+    width: 85%;
+    margin: auto;
+}
+
+.details-img {
+    max-width: 50%;
+    height: auto;
+    flex: 0 50%;
+}
+
+.section-content {
+    padding: 35px;
+    margin-left: 5%;
+}
+
+.needed-times {
+    color: #36455c;
+    font-size: 24px;
+    margin: 25px 0px;
+    line-height: 1.5;
+}
+
+.section-content {
+    font-size: 15px;
+    color: #fff;
+}
+
+.section-content p {
+    color: orangered;
+}
+
+.method-info {
+    color: #fff;
+}
+
+.all-ingredients h1{
+    font-size: 40px;
+    margin: 15px 0;
+}
+
+.all-ingredients p {
+    font-size: 20px;
+    color: #fff;
+}
+
+.cooking-method h1 {
+    font-size: 40px;
+    margin: 20px 0;
+}
+
+.cooking-method p {
+    color: #fff;
+}

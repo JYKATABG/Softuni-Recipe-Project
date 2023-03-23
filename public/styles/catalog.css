@@ -13,6 +13,7 @@
 .recipe {
     display: inline-block;
     text-align: center;
+    margin: 10px;
 }
 
 .recipe h5 {
@@ -40,14 +41,19 @@
 .detailsBtn {
     background: none;
     background-color: orangered;
-    margin-top: 10px;
-    width: 20%;
+    margin: 10px 0px;
+    width: 11%;
     border-radius: 20px;
     padding: 5px;
     font-size: 18px;
     letter-spacing: 2px;
     cursor: pointer;
     transition: .3s;
+    text-decoration: none;
+    position: absolute;
+    right: 45%;
+    color: black;
+
 }
 
 .detailsBtn:hover {

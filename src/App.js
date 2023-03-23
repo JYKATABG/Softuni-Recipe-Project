@@ -11,6 +11,7 @@ import { Catalog } from "./components/Catalog/Catalog.jsx";
 import { Login } from "./components/Login/Login.jsx";
 import { Register } from "./components/Register/Register.jsx";
 import { CreateRecipe } from "./components/CreateRecipe/CreateRecipe.jsx";
+import { RecipeDetails } from "./components/RecipeDetails/RecipeDetails.jsx";
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/create-recipe" element={<CreateRecipe createNewRecipe={createNewRecipe} />} />
+          <Route path="/catalog/:recipeId" element={<RecipeDetails />} />
         </Routes>
       </main>
     </>
