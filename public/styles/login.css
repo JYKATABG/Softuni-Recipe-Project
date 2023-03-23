@@ -48,7 +48,7 @@ form .txt_field {
 
 .txt_field label {
     position: absolute;
-    top: 50%;
+    bottom: 100%;
     left: 5px;
     color: #adadad;
     transform: translateY(-50%);
@@ -60,27 +60,27 @@ form .txt_field {
 .txt_field span::before {
     content: '';
     position: absolute;
-    top: 40px;
+    top: 20px;
     left: 0;
     width: 0%;
     height: 2px;
-    background: orangered;
+    /* background: orangered; */
     transition: .5s;
 }
 
 .txt_field input:focus~label,
 .txt_field input:valid~label {
     top: -5px;
-    color: orangered;
+    /* color: orangered; */
 }
 
 .txt_field textarea:focus~label,
 .txt_field textarea:valid~label {
     top: -12px;
-    color: orangered;
+    /* color: orangered; */
 }
 
-.txt_field input:focus~span::before,
+*/ .txt_field input:focus~span::before,
 .txt_field input:valid~span::before {
     width: 100%;
 }
@@ -132,4 +132,13 @@ input[type="submit"]:hover {
 
 .signup_link a:hover {
     text-decoration: underline;
+}
+
+.errorMsg {
+    color: red;
+    /* position: absolute; */
+    top: 115%;
+    letter-spacing: 2px;
+    font-size: 15px;
+    left: 2%;
 }
