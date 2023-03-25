@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import * as recipeService from './services/recipeService.js';
-import * as authService from './services/authService.js';
+import { recipeServiceFactory } from './services/recipeService.js';
+import { authServiceFactory } from './services/authService.js';
 import { useNavigate } from "react-router-dom";
 
 // Pages
@@ -16,15 +16,18 @@ import { RecipeDetails } from "./components/RecipeDetails/RecipeDetails.jsx";
 import { UserContext } from "./contexts/UserContext.js";
 import { Profile } from "./components/Profile/Profile.jsx";
 import { Logout } from "./components/Logout/Logout.jsx";
+import { useService } from "./hooks/useService.js";
 
 function App() {
 
   const [recipes, setRecipes] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
+  const authRecipeService = recipeServiceFactory(userInfo.accessToken);
+  const authService = authServiceFactory(userInfo.accessToken);
   const navigate = useNavigate();
 
   useEffect(() => {
-    recipeService.getAll()
+    authRecipeService.getAll()
       .then(data => {
         setRecipes(data);
       })
@@ -32,7 +35,7 @@ function App() {
 
   const createNewRecipe = async (data) => {
 
-    const newRecipe = await recipeService.create(data);
+    const newRecipe = await authRecipeService.create(data);
 
     setRecipes(state => ([...state, newRecipe]))
 
@@ -72,7 +75,7 @@ function App() {
   }
 
   const onLogout = async () => {
-    // await authService.logout();
+    await authService.logout();
 
     setUserInfo({});
   }

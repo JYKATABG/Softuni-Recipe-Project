@@ -15,7 +15,7 @@ export const CreateRecipe = ({ createNewRecipe }) => {
     <section>
       <div className="center">
         <h1>Create Recipe</h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form method="POST" onSubmit={handleSubmit(onSubmit)}>
           <div className="txt_field">
             <input
               type="text"

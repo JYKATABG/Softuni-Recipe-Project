@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import * as recipeService from "../../services/recipeService.js";
+import { Link, useParams } from "react-router-dom";
+import { useService } from "../../hooks/useService.js";
+import { recipeServiceFactory } from "../../services/recipeService.js";
 
 export function RecipeDetails() {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState({});
+  const recipeService = useService(recipeServiceFactory);
 
   useEffect(() => {
     recipeService.getOne(recipeId).then((data) => {
@@ -40,12 +42,12 @@ export function RecipeDetails() {
               </div>
             </div>
             <div className="owner-buttons">
-              <a href="" className="button">
+              <Link href="" className="button">
                 Edit
-              </a>
-              <a href="" className="button">
+              </Link>
+              <Link href="" className="button">
                 Delete
-              </a>
+              </Link>
             </div>
           </div>
         </div>

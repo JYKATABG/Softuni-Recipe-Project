@@ -1,4 +1,4 @@
-export async function requester(method, url, data) {
+export async function requester(method, token, url, data) {
 
     const options = {}
 
@@ -14,6 +14,13 @@ export async function requester(method, url, data) {
         }
     }
 
+    if (token) {
+        options.headers = {
+            ...options.headers,
+            'X-Authorization': token
+        }
+    }
+
     const response = await fetch(url, options)
 
     if (response.status === 204) {
@@ -23,13 +30,18 @@ export async function requester(method, url, data) {
     const result = await response.json();
 
     if (!response.ok) {
-       throw alert(result.message);
+        throw alert(result.message);
     }
 
     return result;
 }
 
-export const get = requester.bind(null, 'get');
-export const post = requester.bind(null, 'post');
-export const put = requester.bind(null, 'put');
-export const del = requester.bind(null, 'delete');
+export const requestFactory = (token) => {
+
+    return {
+        get: requester.bind(null, 'get', token),
+        post: requester.bind(null, 'post', token),
+        put: requester.bind(null, 'put', token),
+        del: requester.bind(null, 'delete', token),
+    }
+}
