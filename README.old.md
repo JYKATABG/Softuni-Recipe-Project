@@ -15,6 +15,7 @@ This project was built using the following technologies:
 
 - React
 - React Router
+- React Hook Form
 - HTML & CSS
 
 * Instalation
