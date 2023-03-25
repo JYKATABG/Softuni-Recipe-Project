@@ -20,7 +20,6 @@ body {
 .container h1 {
     color: orangered;
     margin-left: 10px;
-    cursor: pointer;
 }
 
 .navbar ul li {
@@ -37,8 +36,9 @@ body {
 }
 
 .navbar ul li a:hover {
-    box-shadow: 0 3px 50px orangered inset, 0 3px 50px orangered inset,
-        0 3px 50px orangered inset, 0 3px 50px orangered inset;
+    /* box-shadow: 0 3px 50px orangered inset, 0 3px 50px orangered inset,
+        0 3px 50px orangered inset, 0 3px 50px orangered inset; */
+        background-color: orangered;
 }
 
 .navbar .reservation {
@@ -93,4 +93,20 @@ body {
     color: #fff;
     padding: 12px 25px;
     background-color: orangered;
+}
+
+.navbar img {
+    width: 40px;
+    position: absolute;
+    right: 0.5%;
+    top: 1%;
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 40px;
+    transition: all 0.3s ease;
+}
+
+.navbar img:hover {
+    background-color: white;
+    transform: scale(1.2);
 }

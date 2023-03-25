@@ -16,13 +16,17 @@ export async function requester(method, url, data) {
 
     const response = await fetch(url, options)
 
-    try {
-        const result = await response.json();
-
-        return result;
-    } catch (error) {
-        return {}
+    if (response.status === 204) {
+        return {};
     }
+
+    const result = await response.json();
+
+    if (!response.ok) {
+       throw alert(result.message);
+    }
+
+    return result;
 }
 
 export const get = requester.bind(null, 'get');

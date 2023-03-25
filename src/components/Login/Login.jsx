@@ -1,6 +1,11 @@
 import { useForm } from "react-hook-form";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext.js";
+import { Link } from "react-router-dom";
 
 export function Login() {
+  const { onLoginSubmit } = useContext(UserContext);
+
   const {
     register,
     handleSubmit,
@@ -8,14 +13,14 @@ export function Login() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    onLoginSubmit(data);
   };
 
   return (
     <section>
       <div className="center">
         <h1>Login</h1>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form method="POST" onSubmit={handleSubmit(onSubmit)}>
           <div className="txt_field">
             <input
               type="email"
@@ -43,7 +48,7 @@ export function Login() {
               name="password"
               {...register("password", {
                 required: true,
-                minLength: 8,
+                minLength: 6,
                 maxLength: 25,
               })}
             />
@@ -53,7 +58,7 @@ export function Login() {
               <p className="errorMsg">Password is required</p>
             )}
             {errors.password && errors.password.type === "minLength" && (
-              <p className="errorMsg">Password must be min 8 characters</p>
+              <p className="errorMsg">Password must be min 6 characters</p>
             )}
             {errors.password && errors.password.type === "maxLength" && (
               <p className="errorMsg">Password must be max 25 characters</p>
@@ -64,7 +69,7 @@ export function Login() {
           </div>
           <input type="submit" value="Login" />
           <div className="signup_link">
-            Not a member? <a href="/register">Signup</a>
+            Not a member? <Link to={"/register"}>Signup</Link>
           </div>
         </form>
       </div>

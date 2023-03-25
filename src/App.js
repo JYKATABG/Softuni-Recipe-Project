@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import * as recipeService from './services/recipeService.js'
+import * as recipeService from './services/recipeService.js';
+import * as authService from './services/authService.js';
 import { useNavigate } from "react-router-dom";
 
 // Pages
@@ -12,10 +13,14 @@ import { Login } from "./components/Login/Login.jsx";
 import { Register } from "./components/Register/Register.jsx";
 import { CreateRecipe } from "./components/CreateRecipe/CreateRecipe.jsx";
 import { RecipeDetails } from "./components/RecipeDetails/RecipeDetails.jsx";
+import { UserContext } from "./contexts/UserContext.js";
+import { Profile } from "./components/Profile/Profile.jsx";
+import { Logout } from "./components/Logout/Logout.jsx";
 
 function App() {
 
   const [recipes, setRecipes] = useState([]);
+  const [userInfo, setUserInfo] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,22 +39,76 @@ function App() {
     navigate('/catalog');
   }
 
-  return (
-    <>
-      <Header />
+  const onLoginSubmit = async (loginData) => {
 
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/catalog" element={<Catalog recipes={recipes} />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/create-recipe" element={<CreateRecipe createNewRecipe={createNewRecipe} />} />
-          <Route path="/catalog/:recipeId" element={<RecipeDetails />} />
-        </Routes>
-      </main>
-    </>
+    try {
+      const userLogin = await authService.login(loginData);
+
+      setUserInfo(userLogin);
+
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
+  const onRegisterSubmit = async (registerData) => {
+    const { repeatPassword, ...data } = registerData;
+
+    if (repeatPassword !== data.password) {
+      throw alert('Password miss match!');
+    }
+
+    try {
+      const userRegister = await authService.register(data);
+
+      setUserInfo(userRegister);
+
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const onLogout = async () => {
+    // await authService.logout();
+
+    setUserInfo({});
+  }
+
+  const context = {
+    onLoginSubmit,
+    onLogout,
+    onRegisterSubmit,
+    userId: userInfo._id,
+    userEmail: userInfo.email,
+    token: userInfo.acessToken,
+    username: userInfo.username || 'Anonymous',
+    isAuthenticated: !!userInfo.accessToken,
+
+  }
+
+  return (
+    <UserContext.Provider value={context}>
+      <>
+        <Header />
+
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/catalog" element={<Catalog recipes={recipes} />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/create-recipe" element={<CreateRecipe createNewRecipe={createNewRecipe} />} />
+            <Route path="/catalog/:recipeId" element={<RecipeDetails />} />
+          </Routes>
+        </main>
+      </>
+    </UserContext.Provider>
   );
 }
 
