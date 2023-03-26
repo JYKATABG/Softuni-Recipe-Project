@@ -1,11 +1,18 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext.js";
+import { useService } from "../../hooks/useService.js";
+import { recipeServiceFactory } from "../../services/recipeService.js";
 
 export const Profile = () => {
   const { username, userEmail, userId } = useContext(UserContext);
+  // const recipeService = useService(recipeServiceFactory);
 
-  console.log(username);
+  // useEffect(() => {
+  //   recipeService.getRecipeByUser(userId).then((data) => {
+  //     console.log(data);
+  //   });
+  // }, [userId]);
 
   return (
     <div className="wrapper">
