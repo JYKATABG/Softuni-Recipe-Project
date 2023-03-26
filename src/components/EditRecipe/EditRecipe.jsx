@@ -1,0 +1,216 @@
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
+import { useService } from "../../hooks/useService.js";
+import { recipeServiceFactory } from "../../services/recipeService.js";
+
+export const EditRecipe = ({ onRecipeEditSubmit }) => {
+  const { recipeId } = useParams();
+  const [newValues, setNewValues] = useState({});
+
+  useEffect(() => {
+    recipeService.getOne(recipeId).then((result) => {
+      setNewValues(result);
+    });
+  }, [recipeId]);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const recipeService = useService(recipeServiceFactory);
+
+  const onSubmit = (data) => {
+    onRecipeEditSubmit(data, newValues._id);
+  };
+
+  return (
+    <section>
+      <div className="center">
+        <h1>Edit Recipe</h1>
+        <form method="PUT" onSubmit={handleSubmit(onSubmit)}>
+          <div className="txt_field">
+            <input
+              type="text"
+              defaultValue={newValues.title}
+              {...register("title", {
+                required: true,
+                maxLength: 20,
+              })}
+            />
+
+            {errors.title && errors.title.type === "required" && (
+              <p className="errorMsg">Title is required!</p>
+            )}
+            {errors.title && errors.title.type === "maxLength" && (
+              <p className="errorMsg">Title must be maximum 20 characters!</p>
+            )}
+            <span></span>
+            <label>Title</label>
+          </div>
+          <div className="txt_field">
+            <input
+              type="text"
+              defaultValue={newValues.description}
+              {...register("description", {
+                required: false,
+                maxLength: 400,
+              })}
+            />
+
+            {errors.description && errors.description.type === "maxLength" && (
+              <p className="errorMsg">Max description length is 400</p>
+            )}
+            <span></span>
+            <label>Description</label>
+          </div>
+          <div className="txt_field">
+            <input
+              type="number"
+              defaultValue={newValues.preparation}
+              {...register("preparation", {
+                required: true,
+                min: 0,
+                max: 400,
+              })}
+            />
+
+            {/* Validate preparation */}
+            {errors.preparation && errors.preparation.type === "required" && (
+              <p className="errorMsg">Preparation is required</p>
+            )}
+            {errors.preparation && errors.preparation.type === "min" && (
+              <p className="errorMsg">Min preparation time is 0</p>
+            )}
+            {errors.preparation && errors.preparation.type === "max" && (
+              <p className="errorMsg">Max preparation time is 400</p>
+            )}
+            <span></span>
+            <label>Preparation Time (in minutes)</label>
+          </div>
+          <div className="txt_field">
+            <input
+              type="number"
+              defaultValue={newValues.cook}
+              {...register("cook", {
+                required: true,
+                min: 0,
+                max: 400,
+              })}
+            />
+
+            {/* Validate cook time */}
+            {errors.cook && errors.cook.type === "required" && (
+              <p className="errorMsg">Cook is required</p>
+            )}
+            {errors.cook && errors.cook.type === "min" && (
+              <p className="errorMsg">Min cook time is 0</p>
+            )}
+            {errors.cook && errors.cook.type === "max" && (
+              <p className="errorMsg">Max cook time is 400</p>
+            )}
+            <span></span>
+            <label>Cook Time (in minutes)</label>
+          </div>
+          <div className="txt_field">
+            <input
+              defaultValue={newValues.servings}
+              type="number"
+              {...register("servings", {
+                required: true,
+                min: 0,
+                max: 50,
+              })}
+            />
+
+            {/* Validate servings number */}
+            {errors.servings && errors.servings.type === "required" && (
+              <p className="errorMsg">Servings are required</p>
+            )}
+            {errors.servings && errors.servings.type === "min" && (
+              <p className="errorMsg">Min servings time is 0</p>
+            )}
+            {errors.servings && errors.servings.type === "max" && (
+              <p className="errorMsg">Max servings time is 50</p>
+            )}
+            <span></span>
+            <label>Number of servings</label>
+          </div>
+          <div className="txt_field">
+            {/* <input type="number" name="ingredients"  /> */}
+            <textarea
+              defaultValue={newValues.ingredients}
+              {...register("ingredients", {
+                required: true,
+                minLength: 10,
+                maxLength: 1000,
+              })}
+            ></textarea>
+
+            {/* Validate Ingredients */}
+            {errors.ingredients && errors.ingredients.type === "required" && (
+              <p className="errorMsg">Ingredients are required</p>
+            )}
+            {errors.ingredients && errors.ingredients.type === "minLength" && (
+              <p className="errorMsg">Min ingredients characters are 10</p>
+            )}
+            {errors.ingredients && errors.ingredients.type === "maxLength" && (
+              <p className="errorMsg">Max ingredients characters are 1000</p>
+            )}
+            <span></span>
+            <label>List of ingredients</label>
+          </div>
+          <div className="txt_field">
+            {/* <input type="number" name="method"  /> */}
+            <textarea
+              defaultValue={newValues.method}
+              {...register("method", {
+                required: true,
+                maxLength: 1000,
+                minLength: 10,
+              })}
+            ></textarea>
+
+            {/* Validate Method */}
+            {errors.method && errors.method.type === "required" && (
+              <p className="errorMsg">Method is required</p>
+            )}
+            {errors.method && errors.method.type === "minLength" && (
+              <p className="errorMsg">Min ingredients characters are 10</p>
+            )}
+            {errors.method && errors.method.type === "maxLength" && (
+              <p className="errorMsg">Max ingredients characters are 1000</p>
+            )}
+            <span></span>
+            <label>Method</label>
+          </div>
+          <div className="txt_field">
+            {/* <input type="number" name="method"  /> */}
+            <input
+              defaultValue={newValues.imageUrl}
+              {...register("imageUrl", {
+                required: true,
+                pattern: /(https?:\/\/.*\.(?:png|jpg))/i,
+              })}
+            />
+
+            {errors.imageUrl && errors.imageUrl.type === "required" && (
+              <p className="errorMsg">ImageUrl is required</p>
+            )}
+            {errors.imageUrl && errors.imageUrl.type === "pattern" && (
+              <p className="errorMsg">ImageUrl should be http or https</p>
+            )}
+            <span></span>
+            <label>Image</label>
+          </div>
+          <input type="submit" value="Edit recipe" />
+          <div className="signup_link">
+            {/* <!-- Already a member? <a href="#">Log in</a> --> */}
+          </div>
+        </form>
+      </div>
+    </section>
+  );
+};

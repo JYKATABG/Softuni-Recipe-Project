@@ -20,7 +20,6 @@ export const recipeServiceFactory = (token) => {
 
         return result;
     }
-
     const getOne = async (recipeId) => {
         const result = await request.get(`${baseUrl}/${recipeId}`);
 
@@ -29,12 +28,14 @@ export const recipeServiceFactory = (token) => {
 
     const deleteRecipe = (recipeId) => request.delete(`${baseUrl}/${recipeId}`)
 
+    const edit = (recipeId, values) => request.put(`${baseUrl}/${recipeId}`, values);
 
     return {
         delete: deleteRecipe,
         getAll,
         getOne,
         create,
+        edit
     }
 
 }

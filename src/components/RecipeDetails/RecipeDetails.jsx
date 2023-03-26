@@ -21,9 +21,13 @@ export function RecipeDetails() {
   const isOwner = recipe._ownerId === userId;
 
   const onDeleteRecipe = async () => {
-    await recipeService.delete(recipe._id);
+    const choice = window.confirm("Are you sure u want to delete this recipe?");
 
-    navigate("/catalog");
+    if (choice) {
+      await recipeService.delete(recipe._id);
+
+      navigate("/catalog");
+    }
   };
 
   return (
@@ -54,7 +58,7 @@ export function RecipeDetails() {
             </div>
             {isOwner && (
               <div className="owner-buttons">
-                <Link href="" className="button">
+                <Link to={`/catalog/${recipeId}/edit`} className="button">
                   Edit
                 </Link>
                 <button onClick={onDeleteRecipe} className="button">

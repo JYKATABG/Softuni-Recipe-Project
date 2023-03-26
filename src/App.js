@@ -17,6 +17,7 @@ import { UserContext } from "./contexts/UserContext.js";
 import { Profile } from "./components/Profile/Profile.jsx";
 import { Logout } from "./components/Logout/Logout.jsx";
 import { useService } from "./hooks/useService.js";
+import { EditRecipe } from "./components/EditRecipe/EditRecipe.jsx";
 
 function App() {
 
@@ -80,6 +81,18 @@ function App() {
     setUserInfo({});
   }
 
+  const onRecipeEditSubmit = async (values, recipeId) => {
+    try {
+      const result = await authRecipeService.edit(recipeId, values)
+
+      //Change state
+
+      navigate(`/catalog/${recipeId}`)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const context = {
     onLoginSubmit,
     onLogout,
@@ -108,6 +121,7 @@ function App() {
             <Route path="/logout" element={<Logout />} />
             <Route path="/create-recipe" element={<CreateRecipe createNewRecipe={createNewRecipe} />} />
             <Route path="/catalog/:recipeId" element={<RecipeDetails />} />
+            <Route path="/catalog/:recipeId/edit" element={<EditRecipe onRecipeEditSubmit={onRecipeEditSubmit} />} />
           </Routes>
         </main>
       </>
