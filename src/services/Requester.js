@@ -17,7 +17,7 @@ export async function requester(method, token, url, data) {
     if (token) {
         options.headers = {
             ...options.headers,
-            'X-Authorization': token
+            'X-Authorization': token,
         }
     }
 
@@ -39,9 +39,9 @@ export async function requester(method, token, url, data) {
 export const requestFactory = (token) => {
 
     return {
-        get: requester.bind(null, 'get', token),
-        post: requester.bind(null, 'post', token),
-        put: requester.bind(null, 'put', token),
-        del: requester.bind(null, 'delete', token),
+        get: requester.bind(null, 'GET', token),
+        post: requester.bind(null, 'POST', token),
+        put: requester.bind(null, 'PUT', token),
+        delete: requester.bind(null, 'DELETE', token),
     }
 }

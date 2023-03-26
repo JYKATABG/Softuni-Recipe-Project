@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useService } from "../../hooks/useService.js";
 import { recipeServiceFactory } from "../../services/recipeService.js";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext.js";
 
 export function RecipeDetails() {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState({});
   const recipeService = useService(recipeServiceFactory);
+  const { userId } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     recipeService.getOne(recipeId).then((data) => {
       setRecipe(data);
-      console.log(data);
     });
   }, [recipeId]);
+
+  const isOwner = recipe._ownerId === userId;
+
+  const onDeleteRecipe = async () => {
+    await recipeService.delete(recipe._id);
+
+    navigate("/catalog");
+  };
 
   return (
     <section>
@@ -41,14 +52,16 @@ export function RecipeDetails() {
                 <p>{recipe.method}</p>
               </div>
             </div>
-            <div className="owner-buttons">
-              <Link href="" className="button">
-                Edit
-              </Link>
-              <Link href="" className="button">
-                Delete
-              </Link>
-            </div>
+            {isOwner && (
+              <div className="owner-buttons">
+                <Link href="" className="button">
+                  Edit
+                </Link>
+                <button onClick={onDeleteRecipe} className="button">
+                  Delete
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

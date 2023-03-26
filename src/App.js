@@ -86,7 +86,7 @@ function App() {
     onRegisterSubmit,
     userId: userInfo._id,
     userEmail: userInfo.email,
-    token: userInfo.acessToken,
+    token: userInfo.accessToken,
     username: userInfo.username || 'Anonymous',
     isAuthenticated: !!userInfo.accessToken,
 

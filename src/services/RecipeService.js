@@ -27,10 +27,14 @@ export const recipeServiceFactory = (token) => {
         return result
     }
 
+    const deleteRecipe = (recipeId) => request.delete(`${baseUrl}/${recipeId}`)
+
+
     return {
+        delete: deleteRecipe,
         getAll,
         getOne,
-        create
+        create,
     }
 
 }
