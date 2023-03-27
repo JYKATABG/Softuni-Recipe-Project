@@ -4,7 +4,6 @@ let baseUrl = 'http://localhost:3030/data/recipes'
 
 
 export const recipeServiceFactory = (token) => {
-
     const request = requestFactory(token);
 
     const getAll = async () => {

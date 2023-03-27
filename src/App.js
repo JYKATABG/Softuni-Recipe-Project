@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { recipeServiceFactory } from './services/recipeService.js';
 import { useNavigate } from "react-router-dom";
-import { UserProvider } from "./contexts/UserContext.js";
+import { useAuthContext, UserProvider } from "./contexts/UserContext.js";
 import { useService } from "./hooks/useService.js";
 
 // Pages

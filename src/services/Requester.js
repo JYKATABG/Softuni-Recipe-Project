@@ -37,6 +37,15 @@ export async function requester(method, token, url, data) {
 
 export const requestFactory = (token) => {
 
+    if (!token) {
+        const serializaedAuth = localStorage.getItem('auth');
+
+        if (serializaedAuth) {
+            const auth = JSON.parse(serializaedAuth);
+            token = auth.accessToken;
+        }
+    }
+
     return {
         get: requester.bind(null, 'GET', token),
         post: requester.bind(null, 'POST', token),
