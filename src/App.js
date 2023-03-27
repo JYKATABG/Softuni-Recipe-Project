@@ -17,6 +17,7 @@ import { RecipeDetails } from "./components/RecipeDetails/RecipeDetails.jsx";
 import { Profile } from "./components/Profile/Profile.jsx";
 import { Logout } from "./components/Logout/Logout.jsx";
 import { EditRecipe } from "./components/EditRecipe/EditRecipe.jsx";
+import { RouteGuard } from "./components/common/RouteGuard.js";
 
 function App() {
 
@@ -65,11 +66,13 @@ function App() {
           <Route path="/catalog" element={<Catalog recipes={recipes} />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/create-recipe" element={<CreateRecipe createNewRecipe={createNewRecipe} />} />
+          <Route element={<RouteGuard />} >
+            <Route path="/create-recipe" element={<CreateRecipe createNewRecipe={createNewRecipe} />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/catalog/:recipeId/edit" element={<EditRecipe onRecipeEditSubmit={onRecipeEditSubmit} />} />
+          </Route>
           <Route path="/catalog/:recipeId" element={<RecipeDetails />} />
-          <Route path="/catalog/:recipeId/edit" element={<EditRecipe onRecipeEditSubmit={onRecipeEditSubmit} />} />
         </Routes>
       </main>
     </UserProvider>

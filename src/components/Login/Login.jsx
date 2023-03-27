@@ -1,10 +1,9 @@
 import { useForm } from "react-hook-form";
-import { useContext } from "react";
-import { UserContext } from "../../contexts/UserContext.js";
+import { useAuthContext } from "../../contexts/UserContext.js";
 import { Link } from "react-router-dom";
 
 export function Login() {
-  const { onLoginSubmit } = useContext(UserContext);
+  const { onLoginSubmit } = useAuthContext();
 
   const {
     register,
