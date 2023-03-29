@@ -56,7 +56,7 @@
     color: #fff;
 }
 
-.all-ingredients h1{
+.all-ingredients h1 {
     font-size: 40px;
     margin: 15px 0;
 }
@@ -91,4 +91,5 @@
     background-color: #fff;
     color: orangered;
     opacity: 5px;
+    cursor: pointer;
 }

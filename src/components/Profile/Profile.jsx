@@ -16,9 +16,6 @@ export const Profile = () => {
     });
   }, [userId]);
 
-  console.log(userRecipes);
-  console.log(userId);
-
   return (
     <div className="wrapper">
       <div className="left">
