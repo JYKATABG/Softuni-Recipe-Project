@@ -1,18 +1,23 @@
-import { useContext, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../contexts/UserContext.js";
-import { useService } from "../../hooks/useService.js";
+import { useAuthContext } from "../../contexts/UserContext.js";
 import { recipeServiceFactory } from "../../services/recipeService.js";
+import { ProfileRecipe } from "./ProfileRecipe/ProfileRecipe.jsx";
 
 export const Profile = () => {
-  const { username, userEmail, userId } = useContext(UserContext);
-  // const recipeService = useService(recipeServiceFactory);
+  const { username, userEmail, userId } = useAuthContext();
+  const [userRecipes, setUserRecipes] = useState([]);
+  const recipeService = recipeServiceFactory();
 
-  // useEffect(() => {
-  //   recipeService.getRecipeByUser(userId).then((data) => {
-  //     console.log(data);
-  //   });
-  // }, [userId]);
+  useEffect(() => {
+    recipeService.getAll().then((data) => {
+      setUserRecipes(data);
+      setUserRecipes((state) => state.filter((x) => x._ownerId === userId));
+    });
+  }, [userId]);
+
+  console.log(userRecipes);
+  console.log(userId);
 
   return (
     <div className="wrapper">
@@ -44,55 +49,22 @@ export const Profile = () => {
             </div>
           </div>
         </div>
-
         <div className="projects">
           <h3>User Recipes</h3>
           <div className="recipe_data">
             <div className="all-recipes">
-              <div className="user-recipe">
-                <p className="user-recipe-title">Spaghetti Bolognese</p>
-                <img
-                  className="userProfileImage"
-                  alt="recipe-img"
-                  src="/images/spaghetti.jpg"
-                />
-                <a className="button" href="/memes/${meme._id}">
-                  Details
-                </a>
-              </div>
-              <div className="user-recipe">
-                <p className="user-recipe-title">Fried Chicken</p>
-                <img
-                  className="userProfileImage"
-                  alt="recipe-img"
-                  src="images/chicken.jpg"
-                />
-                <a className="button" href="/memes/${meme._id}">
-                  Details
-                </a>
-              </div>
-              <div className="user-recipe">
-                <p className="user-recipe-title">Fried Chicken</p>
-                <img
-                  className="userProfileImage"
-                  alt="recipe-img"
-                  src="images/chicken.jpg"
-                />
-                <a className="button" href="/memes/${meme._id}">
-                  Details
-                </a>
-              </div>
-              <div className="user-recipe">
-                <p className="user-recipe-title">Fried Chicken</p>
-                <img
-                  className="userProfileImage"
-                  alt="recipe-img"
-                  src="images/chicken.jpg"
-                />
-                <a className="button" href="/memes/${meme._id}">
-                  Details
-                </a>
-              </div>
+              {/* {userRecipes
+                .filter((x) => x._ownerId === userId)
+                .map((x) => (
+                  <ProfileRecipe key={x._id} {...x} />
+                ))} */}
+              {userRecipes.map((x) => (
+                <ProfileRecipe key={x._id} {...x} />
+              ))}
+
+              {userRecipes.length === 0 && (
+                <p className="no-recipes">User doesn't own any recipes</p>
+              )}
             </div>
           </div>
         </div>

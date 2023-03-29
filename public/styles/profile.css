@@ -109,7 +109,9 @@
 
 .user-recipe {
     margin: 0 10px 0 10px;
-    width: 45%;
+    padding: 20px;
+    width: 280px;
+    max-width: 75%;
     box-shadow: 2px 5px 13px 0px #000000, 8px -15px 31px -12px rgb(0 0 0 / 0%);
     background-color: rgba(0, 0, 0, 0.03);
     border-radius: 2%;
@@ -119,6 +121,8 @@
     color: orangered;
     display: block;
     width: 90%;
+    font-size: 20px;
+    letter-spacing: 3px;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
@@ -137,7 +141,8 @@
 
 .user-recipe .button {
     margin: 15px;
-    bottom: 10px;
+    /* bottom: 10px; */
+    padding: 5px;
     position: relative;
     text-decoration: none;
     color: white;
@@ -145,7 +150,14 @@
     display: flex;
     justify-content: center;
     text-align: center;
+    transition: all .3s ease;
 
+}
+
+.user-recipe .button:hover {
+    transform: scale(1.2);
+    background-color: #fff;
+    color: orangered;
 }
 
 
@@ -170,4 +182,11 @@
     transform: scale(1.2);
     text-transform: uppercase;
     text-decoration-style: wavy;
+}
+
+.no-recipes {
+    font-size: 30px;
+    margin-top: 50px;
+    text-decoration: none;
+    color: orangered;
 }

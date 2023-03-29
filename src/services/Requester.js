@@ -20,6 +20,7 @@ export async function requester(method, token, url, data) {
             'X-Authorization': token,
         }
     }
+
     const response = await fetch(url, options)
 
     if (response.status === 204) {
