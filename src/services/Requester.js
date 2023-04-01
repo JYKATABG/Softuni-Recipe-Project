@@ -26,14 +26,15 @@ export async function requester(method, token, url, data) {
     if (response.status === 204) {
         return {};
     }
+    if (response.statusText !== "Not Found") {
+        const result = await response.json();
 
-    const result = await response.json();
+        if (!response.ok) {
+            throw alert(result.message);
+        }
 
-    if (!response.ok) {
-        throw alert(result.message);
+        return result;
     }
-
-    return result;
 }
 
 export const requestFactory = (token) => {
