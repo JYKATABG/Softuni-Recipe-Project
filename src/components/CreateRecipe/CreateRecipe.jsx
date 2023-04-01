@@ -1,6 +1,9 @@
 import { useForm } from "react-hook-form";
+import { useRecipeContext } from "../../contexts/RecipeContext.js";
 
-export const CreateRecipe = ({ createNewRecipe }) => {
+export const CreateRecipe = () => {
+  const { createNewRecipe } = useRecipeContext();
+
   const {
     register,
     handleSubmit,

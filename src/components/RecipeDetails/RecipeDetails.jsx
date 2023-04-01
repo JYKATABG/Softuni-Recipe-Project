@@ -4,12 +4,14 @@ import { useService } from "../../hooks/useService.js";
 import { recipeServiceFactory } from "../../services/recipeService.js";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext.js";
+import { useRecipeContext } from "../../contexts/RecipeContext.js";
 
 export function RecipeDetails() {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState({});
-  const recipeService = useService(recipeServiceFactory);
+  const recipeService = recipeServiceFactory();
   const { userId } = useContext(UserContext);
+  const { deleteRecipe } = useRecipeContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,14 +23,21 @@ export function RecipeDetails() {
   const isOwner = recipe._ownerId === userId;
 
   const onDeleteRecipe = async () => {
-    const choice = window.confirm("Are you sure u want to delete this recipe?");
+    const choice = window.confirm(
+      `Are you sure u want to delete ${recipe.title} recipe?`
+    );
 
     if (choice) {
       await recipeService.delete(recipe._id);
 
+      deleteRecipe(recipe._id);
+
       navigate("/catalog");
     }
   };
+
+  const ingredientsData = recipe.ingredients;
+  console.log(ingredientsData);
 
   return (
     <section>

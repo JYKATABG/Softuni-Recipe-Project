@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { recipeServiceFactory } from './services/recipeService.js';
-import { useNavigate } from "react-router-dom";
-import { useAuthContext, UserProvider } from "./contexts/UserContext.js";
-import { useService } from "./hooks/useService.js";
+import { UserProvider } from "./contexts/UserContext.js";
+import { RecipeProvider } from "./contexts/RecipeContext.js";
+
 
 // Pages
 import { About } from "./components/About/About.jsx";
@@ -21,60 +19,28 @@ import { RouteGuard } from "./components/common/RouteGuard.js";
 
 function App() {
 
-  const [recipes, setRecipes] = useState([]);
-  const authRecipeService = recipeServiceFactory(); //userInfo.accessToken
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    authRecipeService.getAll()
-      .then(data => {
-        setRecipes(data);
-      })
-  }, [])
-
-  const createNewRecipe = async (data) => {
-
-    const newRecipe = await authRecipeService.create(data);
-
-    setRecipes(state => ([...state, newRecipe]))
-
-    navigate('/catalog');
-  }
-
-
-  const onRecipeEditSubmit = async (values, recipeId) => {
-    try {
-      const result = await authRecipeService.edit(recipeId, values)
-
-      //Change state
-
-      navigate(`/catalog/${recipeId}`)
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-
   return (
     <UserProvider>
-      <Header />
+      <RecipeProvider>
+        <Header />
 
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/catalog" element={<Catalog recipes={recipes} />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route element={<RouteGuard />} >
-            <Route path="/create-recipe" element={<CreateRecipe createNewRecipe={createNewRecipe} />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/catalog/:recipeId/edit" element={<EditRecipe onRecipeEditSubmit={onRecipeEditSubmit} />} />
-          </Route>
-          <Route path="/catalog/:recipeId" element={<RecipeDetails />} />
-        </Routes>
-      </main>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route element={<RouteGuard />} >
+              <Route path="/create-recipe" element={<CreateRecipe />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/catalog/:recipeId/edit" element={<EditRecipe />} />
+            </Route>
+            <Route path="/catalog/:recipeId" element={<RecipeDetails />} />
+          </Routes>
+        </main>
+      </RecipeProvider>
     </UserProvider>
   );
 }

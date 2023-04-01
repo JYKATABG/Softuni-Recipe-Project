@@ -3,8 +3,10 @@ import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useService } from "../../hooks/useService.js";
 import { recipeServiceFactory } from "../../services/recipeService.js";
+import { useRecipeContext } from "../../contexts/RecipeContext.js";
 
-export const EditRecipe = ({ onRecipeEditSubmit }) => {
+export const EditRecipe = () => {
+  const { onRecipeEditSubmit } = useRecipeContext();
   const { recipeId } = useParams();
   const [newValues, setNewValues] = useState({});
 
