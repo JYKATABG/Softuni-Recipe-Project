@@ -37,6 +37,7 @@ export const RecipeProvider = ({ children }) => {
             const result = await authRecipeService.edit(recipeId, values)
 
             //Change state
+            setRecipes(state => state.map(x => x._id === values._id ? result : x));
 
             navigate(`/catalog/${recipeId}`)
         } catch (error) {
