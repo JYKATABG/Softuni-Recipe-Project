@@ -33,16 +33,11 @@ export const RecipeProvider = ({ children }) => {
 
 
     const onRecipeEditSubmit = async (values, recipeId) => {
-        try {
-            const result = await authRecipeService.edit(recipeId, values)
+        const result = await authRecipeService.edit(recipeId, values)
 
-            //Change state
-            setRecipes(state => state.map(x => x._id === values._id ? result : x));
+        setRecipes(state => state.map(x => x._id === values._id ? result : x));
 
-            navigate(`/catalog/${recipeId}`)
-        } catch (error) {
-            console.log(error);
-        }
+        navigate(`/catalog/${recipeId}`)
     }
 
     const deleteRecipe = (recipeId) => {
