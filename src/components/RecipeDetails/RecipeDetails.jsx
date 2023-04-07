@@ -16,8 +16,12 @@ export function RecipeDetails() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    recipeService.getOne(recipeId).then((data) => {
-      setRecipe(data);
+    Promise.all([
+      recipeService.getOne(recipeId),
+      followService.getLikes(recipeId),
+    ]).then(([recipeData, likeData]) => {
+      setRecipe({ ...recipeData, likeData });
+      setRecipeLikes(likeData);
     });
   }, [recipeId]);
 
