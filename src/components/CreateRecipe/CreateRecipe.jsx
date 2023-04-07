@@ -24,7 +24,7 @@ export const CreateRecipe = () => {
               type="text"
               {...register("title", {
                 required: true,
-                maxLength: 20,
+                maxLength: 50,
               })}
             />
 
@@ -32,7 +32,7 @@ export const CreateRecipe = () => {
               <p className="errorMsg">Title is required!</p>
             )}
             {errors.title && errors.title.type === "maxLength" && (
-              <p className="errorMsg">Title must be maximum 20 characters!</p>
+              <p className="errorMsg">Title must be maximum 50 characters!</p>
             )}
             <span></span>
             <label>Title</label>

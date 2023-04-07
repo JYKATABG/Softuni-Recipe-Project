@@ -93,3 +93,34 @@
     opacity: 5px;
     cursor: pointer;
 }
+
+.profile-info {
+    color: white;
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.profile-info h2 {
+    font-size: 25px;
+    letter-spacing: 2px;
+}
+
+.profile-info button {
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 12px;
+    background-color: orangered;
+    color: #fff;
+    cursor: pointer;
+    transition: all .3s;
+    overflow: none;
+    border: rgba(255, 255, 255, .5);
+}
+
+.profile-info button:hover {
+    transform: scale(1.1);
+    border: 2px solid #fff;
+}
